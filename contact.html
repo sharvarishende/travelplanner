@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Feedback — Maharashtra Tourism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- EmailJS SDK — sends emails directly from the browser, no backend needed -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <style>
+    /* ══ NAV ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; flex-direction: row; flex-wrap: nowrap;
+      align-items: center; justify-content: space-between;
+      height: 60px; padding: 0 2rem;
+      background: #1B3A2D;
+      border-bottom: 2px solid #52B788;
+      box-sizing: border-box;
+    }
+    .nav-brand {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .nav-brand svg { width: 26px; height: 26px; flex-shrink: 0; display: block; }
+    .nav-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 600;
+      color: #fff; line-height: 1; white-space: nowrap;
+    }
+    .nav-wordmark span { color: #52B788; }
+    .nav-links {
+      display: flex !important;
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+      margin: 0; padding: 0;
+      flex-shrink: 0;
+    }
+    .nav-links li { list-style: none; }
+    .nav-links li a {
+      display: block;
+      padding: 0 0.75rem;
+      line-height: 60px;
+      text-decoration: none;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color 0.2s, background 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links li a:hover { color: #52B788; }
+    .nav-links li a.active { color: #52B788; border-bottom: 2px solid #52B788; }
+    .nav-toggle { display: none; }
+    /* ══ END NAV ══ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:  #1B3A2D;
+      --green-mid:   #2D6A4F;
+      --green-light: #52B788;
+      --cream:       #F5FBF7;
+      --card-bg:     #EEF7F2;
+      --muted:       #4A7A5E;
+      --white:       #ffffff;
+      --nav-h:       60px;
+      --error:       #c0392b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--green-dark); overflow-x: clip; }
+
+    
+
+    /* Desktop links */
+
+    /* Hamburger — hidden on desktop */
+
+    /* Mobile */
+    
+
+    
+    /* Desktop links */
+
+    /* Hamburger — hidden on desktop */
+
+    /* Mobile */
+    
+
+    /* ══ HERO STRIP ══ */
+    .page-hero {
+      padding-top: var(--nav-h);
+      background: var(--green-dark);
+      padding-bottom: 4rem; padding-left: 4rem; padding-right: 4rem;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; right: -120px; top: -60px;
+      width: 420px; height: 420px; border-radius: 50%;
+      border: 1px solid rgba(82,183,136,0.12);
+    }
+    .page-hero::after {
+      content: ''; position: absolute; right: -40px; top: 10px;
+      width: 260px; height: 260px; border-radius: 50%;
+      border: 1px solid rgba(82,183,136,0.08);
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 680px; padding-top: 3.5rem; }
+    .hero-eyebrow { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green-light); margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.7s 0.2s forwards; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 300; line-height: 1.0; color: var(--white); margin-bottom: 1.2rem; opacity: 0; animation: fadeUp 0.7s 0.4s forwards; }
+    .hero-title em { font-style: italic; color: var(--green-light); }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.6); line-height: 1.75; max-width: 500px; opacity: 0; animation: fadeUp 0.7s 0.6s forwards; }
+
+    /* ══ TAB BAR ══ */
+    .tab-bar {
+      background: var(--green-mid); padding: 0 4rem;
+      display: flex; gap: 0;
+      border-bottom: 2px solid rgba(82,183,136,0.3);
+    }
+    .tab-btn {
+      padding: 1.1rem 2.5rem; background: transparent; border: none;
+      font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); cursor: pointer; position: relative;
+      transition: color 0.25s;
+    }
+    .tab-btn::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--green-light); transform: scaleX(0); transition: transform 0.25s; }
+    .tab-btn.active { color: var(--white); }
+    .tab-btn.active::after { transform: scaleX(1); }
+    .tab-btn:hover { color: rgba(255,255,255,0.85); }
+
+    /* ══ PANELS ══ */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ══ CONTACT PANEL ══ */
+    .contact-layout { display: grid; grid-template-columns: 1fr 1.4fr; min-height: 80vh; }
+
+    .contact-sidebar { background: var(--green-mid); padding: 4rem 3rem; display: flex; flex-direction: column; gap: 3rem; }
+    .sidebar-heading { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--white); line-height: 1.2; margin-bottom: 0.5rem; }
+    .sidebar-heading em { font-style: italic; color: var(--green-light); }
+    .sidebar-sub { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    .contact-items { display: flex; flex-direction: column; gap: 1.8rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .contact-icon { width: 42px; height: 42px; flex-shrink: 0; border: 1px solid rgba(82,183,136,0.35); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--green-light); }
+    .contact-item-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.25rem; }
+    .contact-item-val { font-size: 0.9rem; color: var(--white); line-height: 1.5; }
+    .contact-item-val a { color: var(--green-light); text-decoration: none; }
+    .contact-item-val a:hover { text-decoration: underline; }
+
+    .social-row { display: flex; gap: 0.75rem; }
+    .social-btn { width: 38px; height: 38px; border: 1px solid rgba(82,183,136,0.3); background: transparent; color: rgba(255,255,255,0.55); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+    .social-btn:hover { border-color: var(--green-light); color: var(--green-light); }
+
+    .contact-form-wrap { background: var(--cream); padding: 4rem; display: flex; flex-direction: column; justify-content: center; }
+    .form-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--green-dark); margin-bottom: 0.4rem; }
+    .form-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 2.5rem; line-height: 1.6; }
+
+    .c-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .c-form-group { display: flex; flex-direction: column; gap: 0.45rem; }
+    .c-form-group.full { grid-column: 1 / -1; }
+    .c-form-group label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .c-form-group input, .c-form-group select, .c-form-group textarea {
+      padding: 0.85rem 1rem;
+      border: 1.5px solid rgba(82,183,136,0.22);
+      background: var(--white); font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; color: var(--green-dark);
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none;
+    }
+    .c-form-group input:focus, .c-form-group select:focus, .c-form-group textarea:focus { border-color: var(--green-light); box-shadow: 0 0 0 3px rgba(82,183,136,0.12); }
+    .c-form-group input.error, .c-form-group select.error, .c-form-group textarea.error { border-color: var(--error); }
+    .c-form-group textarea { resize: vertical; min-height: 110px; }
+    .c-form-group input::placeholder, .c-form-group textarea::placeholder { color: rgba(74,122,94,0.4); }
+    .field-error { font-size: 0.72rem; color: var(--error); margin-top: 0.2rem; display: none; }
+    .field-error.visible { display: block; }
+
+    .submit-row { display: flex; align-items: center; gap: 1.5rem; margin-top: 1.2rem; }
+    .submit-btn { padding: 0.95rem 2.5rem; background: var(--green-mid); color: var(--white); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.3s; display: flex; align-items: center; gap: 0.6rem; }
+    .submit-btn:hover:not(:disabled) { background: var(--green-dark); }
+    .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .form-note { font-size: 0.75rem; color: rgba(74,122,94,0.55); line-height: 1.5; }
+
+    .alert-box { display: none; margin-top: 1.2rem; padding: 1rem 1.3rem; font-size: 0.88rem; line-height: 1.6; border-left: 3px solid; }
+    .alert-box.success { background: rgba(82,183,136,0.1); border-color: var(--green-light); color: var(--green-mid); }
+    .alert-box.error   { background: rgba(192,57,43,0.08); border-color: var(--error); color: var(--error); }
+    .alert-box.visible { display: block; }
+
+    /* Loader spinner inside button */
+    .btn-loader { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.35); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ══ FEEDBACK PANEL ══ */
+    .feedback-layout { max-width: 820px; margin: 0 auto; padding: 5rem 4rem; }
+    .fb-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; color: var(--green-dark); margin-bottom: 0.5rem; }
+    .fb-heading em { font-style: italic; color: var(--green-light); }
+    .fb-sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 3rem; line-height: 1.65; }
+
+    /* Star rating */
+    .rating-group { margin-bottom: 2.5rem; }
+    .rating-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; display: block; }
+    .stars { display: flex; gap: 0.4rem; flex-direction: row-reverse; justify-content: flex-end; }
+    .stars input { display: none; }
+    .stars label { font-size: 2rem; cursor: pointer; color: rgba(82,183,136,0.25); transition: color 0.15s, transform 0.15s; }
+    .stars label:hover, .stars label:hover ~ label, .stars input:checked ~ label { color: var(--green-light); }
+    .stars label:hover { transform: scale(1.2); }
+
+    /* Mood */
+    .mood-group { margin-bottom: 2.5rem; }
+    .mood-row { display: flex; gap: 1rem; margin-top: 0.8rem; flex-wrap: wrap; }
+    .mood-btn { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 0.8rem 1.2rem; border: 1.5px solid rgba(82,183,136,0.2); background: transparent; cursor: pointer; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+    .mood-btn .mood-emoji { font-size: 1.6rem; }
+    .mood-btn.selected { border-color: var(--green-light); background: var(--card-bg); color: var(--green-mid); }
+    .mood-btn:hover { border-color: var(--green-light); }
+
+    /* Category chips */
+    .category-group { margin-bottom: 2.5rem; }
+    .cat-chips { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 0.8rem; }
+    .cat-chip { padding: 0.5rem 1.2rem; border: 1.5px solid rgba(82,183,136,0.25); font-size: 0.8rem; color: var(--muted); cursor: pointer; transition: all 0.2s; user-select: none; background: transparent; font-family: 'DM Sans', sans-serif; }
+    .cat-chip.selected { border-color: var(--green-light); background: var(--green-light); color: var(--white); }
+
+    /* Fields */
+    .fb-form-group { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.5rem; }
+    .fb-form-group label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .fb-form-group input, .fb-form-group textarea, .fb-form-group select { padding: 0.85rem 1rem; border: 1.5px solid rgba(82,183,136,0.22); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--green-dark); outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; }
+    .fb-form-group input:focus, .fb-form-group textarea:focus, .fb-form-group select:focus { border-color: var(--green-light); box-shadow: 0 0 0 3px rgba(82,183,136,0.12); }
+    .fb-form-group textarea { resize: vertical; min-height: 120px; }
+    .fb-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+    /* Recommend toggle */
+    .recommend-group { margin-bottom: 2rem; }
+    .toggle-row { display: flex; gap: 0.75rem; margin-top: 0.8rem; }
+    .toggle-opt { flex: 1; padding: 0.85rem; border: 1.5px solid rgba(82,183,136,0.22); background: var(--white); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-align: center; color: var(--muted); transition: all 0.2s; }
+    .toggle-opt.selected { border-color: var(--green-light); background: var(--green-light); color: var(--white); }
+    .toggle-opt:hover:not(.selected) { border-color: var(--green-light); color: var(--green-mid); }
+
+    .fb-submit-row { display: flex; align-items: center; gap: 1.5rem; margin-top: 2rem; }
+    .fb-submit-btn { padding: 1rem 2.8rem; background: var(--green-mid); color: var(--white); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.3s; display: flex; align-items: center; gap: 0.6rem; }
+    .fb-submit-btn:hover:not(:disabled) { background: var(--green-dark); }
+    .fb-submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    /* Success screen */
+    .fb-success { display: none; text-align: center; padding: 4rem 2rem; }
+    .fb-success.visible { display: block; }
+    .fb-success-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .fb-success-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--green-dark); margin-bottom: 0.75rem; }
+    .fb-success-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+    /* ══ FOOTER ══ */
+    footer { background: var(--green-dark); padding: 2.5rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(82,183,136,0.2); }
+    .footer-copy { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--green-light); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+    @media (max-width: 900px) {
+
+      .page-hero { padding: var(--nav-h) 1.5rem 3rem; }
+      .tab-bar { padding: 0 1.5rem; }
+      .contact-layout { grid-template-columns: 1fr; }
+      .contact-sidebar { padding: 3rem 1.5rem; }
+      .contact-form-wrap { padding: 3rem 1.5rem; }
+      .c-form-grid { grid-template-columns: 1fr; }
+      .feedback-layout { padding: 3rem 1.5rem; }
+      .fb-two-col { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAV ══ -->
+        <nav>
+    <a href="index.html" class="nav-brand">
+      <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="15" r="14" stroke="#52B788" stroke-width="1.2"/><path d="M15 3 C16 8.5 16 12 15 15 C14 12 14 8.5 15 3Z" fill="#52B788"/><path d="M15 27 C14 21.5 14 18 15 15 C16 18 16 21.5 15 27Z" fill="#52B788"/><path d="M3 15 C8.5 14 12 14 15 15 C12 16 8.5 16 3 15Z" fill="#C8860A"/><path d="M27 15 C21.5 16 18 16 15 15 C18 14 21.5 14 27 15Z" fill="#C8860A"/><circle cx="15" cy="15" r="2.2" fill="#1B3A2D"/><circle cx="15" cy="15" r="0.9" fill="#52B788"/></svg>
+      <span class="nav-wordmark">Maha<span>rashtra</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="pune.html">Pune</a></li>
+      <li><a href="mumbai.html">Mumbai</a></li>
+      <li><a href="nashik.html">Nashik</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <div class="page-hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Maharashtra Tourism</p>
+      <h1 class="hero-title">Get in <em>Touch</em><br>& Share Feedback</h1>
+      <p class="hero-sub">Have a question about your trip? Visited a place and want to share your experience? We'd love to hear from you.</p>
+    </div>
+  </div>
+
+  <!-- ══ TAB BAR ══ -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('contact', this)">✉ Contact Us</button>
+    <button class="tab-btn" onclick="switchTab('feedback', this)">★ Share Feedback</button>
+  </div>
+
+  <!-- ════════════════════════════════
+       CONTACT PANEL
+  ════════════════════════════════ -->
+  <div id="panel-contact" class="panel active">
+    <div class="contact-layout">
+
+      <!-- Sidebar -->
+      <div class="contact-sidebar">
+        <div>
+          <h2 class="sidebar-heading">We're here<br>to <em>help</em></h2>
+          <p class="sidebar-sub">Whether you're planning your first visit or your tenth, our team is happy to assist with recommendations, itineraries, and general enquiries.</p>
+        </div>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-item-label">Address</div>
+              <div class="contact-item-val">Maharashtra Tourism Development Corporation<br>CDO Hutments, Madame Cama Road, Mumbai – 400 020</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <div class="contact-item-label">Phone</div>
+              <div class="contact-item-val"><a href="tel:+912222025713">+91 22 2202 5713</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉</div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-val"><a href="mailto:info@maharashtratourism.gov.in">info@maharashtratourism.gov.in</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <div class="contact-item-label">Office Hours</div>
+              <div class="contact-item-val">Monday – Friday<br>9:30 AM – 6:00 PM IST</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="contact-item-label" style="margin-bottom:0.75rem">Follow us</p>
+          <div class="social-row">
+            <a href="#" class="social-btn" title="Instagram">📷</a>
+            <a href="#" class="social-btn" title="Facebook">f</a>
+            <a href="#" class="social-btn" title="X">𝕏</a>
+            <a href="#" class="social-btn" title="YouTube">▶</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrap">
+        <h2 class="form-heading">Send us a message</h2>
+        <p class="form-sub">Fill in the form and we'll get back to you within 2 business days. Your message is emailed directly to our team.</p>
+
+        <div class="c-form-grid">
+          <div class="c-form-group">
+            <label>First Name *</label>
+            <input type="text" id="c-fname" placeholder="Aarav" />
+            <span class="field-error" id="err-fname">Please enter your first name.</span>
+          </div>
+          <div class="c-form-group">
+            <label>Last Name *</label>
+            <input type="text" id="c-lname" placeholder="Sharma" />
+            <span class="field-error" id="err-lname">Please enter your last name.</span>
+          </div>
+          <div class="c-form-group">
+            <label>Email Address *</label>
+            <input type="email" id="c-email" placeholder="aarav@email.com" />
+            <span class="field-error" id="err-email">Please enter a valid email.</span>
+          </div>
+          <div class="c-form-group">
+            <label>Phone (optional)</label>
+            <input type="tel" id="c-phone" placeholder="+91 98765 43210" />
+          </div>
+          <div class="c-form-group full">
+            <label>Subject *</label>
+            <select id="c-subject">
+              <option value="">— Select a topic —</option>
+              <option>Trip Planning Help</option>
+              <option>Pune Enquiry</option>
+              <option>Mumbai Enquiry</option>
+              <option>AI Planner Support</option>
+              <option>Accommodation</option>
+              <option>Transport & Getting Around</option>
+              <option>Other</option>
+            </select>
+            <span class="field-error" id="err-subject">Please select a subject.</span>
+          </div>
+          <div class="c-form-group full">
+            <label>Message *</label>
+            <textarea id="c-message" placeholder="Tell us how we can help you plan the perfect Maharashtra trip…"></textarea>
+            <span class="field-error" id="err-message">Please enter your message.</span>
+          </div>
+        </div>
+
+        <div class="submit-row">
+          <button class="submit-btn" id="contactBtn" onclick="submitContact()">
+            Send Message →
+          </button>
+          <p class="form-note">We respect your privacy.<br>Your details are never shared.</p>
+        </div>
+
+        <div class="alert-box" id="contactAlert"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       FEEDBACK PANEL
+  ════════════════════════════════ -->
+  <div id="panel-feedback" class="panel">
+    <div class="feedback-layout">
+
+      <div id="feedbackFormWrap">
+        <h2 class="fb-heading">Your experience <em>matters</em></h2>
+        <p class="fb-sub">Share your honest feedback. Every rating and word is emailed to our team and used to improve the Maharashtra Tourism experience.</p>
+
+        <!-- Stars -->
+        <div class="rating-group">
+          <span class="rating-label">Overall experience rating *</span>
+          <div class="stars">
+            <input type="radio" name="rating" id="s5" value="5"><label for="s5">★</label>
+            <input type="radio" name="rating" id="s4" value="4"><label for="s4">★</label>
+            <input type="radio" name="rating" id="s3" value="3"><label for="s3">★</label>
+            <input type="radio" name="rating" id="s2" value="2"><label for="s2">★</label>
+            <input type="radio" name="rating" id="s1" value="1"><label for="s1">★</label>
+          </div>
+        </div>
+
+        <!-- Mood -->
+        <div class="mood-group">
+          <span class="rating-label">How did your visit make you feel?</span>
+          <div class="mood-row">
+            <button class="mood-btn" data-mood="Amazing"      onclick="selectMood(this)"><span class="mood-emoji">🤩</span>Amazing</button>
+            <button class="mood-btn" data-mood="Happy"        onclick="selectMood(this)"><span class="mood-emoji">😊</span>Happy</button>
+            <button class="mood-btn" data-mood="Neutral"      onclick="selectMood(this)"><span class="mood-emoji">😐</span>Neutral</button>
+            <button class="mood-btn" data-mood="Disappointed" onclick="selectMood(this)"><span class="mood-emoji">😕</span>Disappointed</button>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="category-group">
+          <span class="rating-label">What are you giving feedback about?</span>
+          <div class="cat-chips">
+            <button class="cat-chip" onclick="this.classList.toggle('selected')">🏰 Pune Attractions</button>
+            <button class="cat-chip" onclick="this.classList.toggle('selected')">🌊 Mumbai Attractions</button>
+            <button class="cat-chip" onclick="this.classList.toggle('selected')">🤖 AI Travel Planner</button>
+            <button class="cat-chip" onclick="this.classList.toggle('selected')">🗺️ Website Navigation</button>
+            <button class="cat-chip" onclick="this.classList.toggle('selected')">📸 Photos & Content</button>
+            <button class="cat-chip" onclick="this.classList.toggle('selected')">🍛 Food Recommendations</button>
+            <button class="cat-chip" onclick="this.classList.toggle('selected')">🏨 Accommodation Info</button>
+            <button class="cat-chip" onclick="this.classList.toggle('selected')">🚌 Transport Info</button>
+          </div>
+        </div>
+
+        <!-- City + Name -->
+        <div class="fb-two-col" style="margin-bottom:1.5rem">
+          <div class="fb-form-group" style="margin-bottom:0">
+            <label>Which city did you visit?</label>
+            <select id="fb-city">
+              <option value="">— Select —</option>
+              <option>Pune</option><option>Mumbai</option>
+              <option>Both</option><option>Planning to visit</option>
+            </select>
+          </div>
+          <div class="fb-form-group" style="margin-bottom:0">
+            <label>Your name (optional)</label>
+            <input type="text" id="fb-name" placeholder="e.g. Priya M." />
+          </div>
+        </div>
+
+        <!-- Written feedback -->
+        <div class="fb-form-group">
+          <label>Tell us more *</label>
+          <textarea id="fb-text" placeholder="Share the highlights, what could be improved, or any hidden gems you discovered…"></textarea>
+        </div>
+
+        <!-- Recommend -->
+        <div class="recommend-group">
+          <span class="rating-label">Would you recommend Maharashtra Tourism to a friend?</span>
+          <div class="toggle-row">
+            <button class="toggle-opt" onclick="selectToggle(this)">👍 Yes, definitely!</button>
+            <button class="toggle-opt" onclick="selectToggle(this)">🤔 Maybe</button>
+            <button class="toggle-opt" onclick="selectToggle(this)">👎 Not right now</button>
+          </div>
+        </div>
+
+        <div class="fb-submit-row">
+          <button class="fb-submit-btn" id="fbBtn" onclick="submitFeedback()">
+            Submit Feedback →
+          </button>
+          <p class="form-note" style="font-size:0.75rem;color:rgba(74,122,94,0.55);line-height:1.5">Anonymous submissions welcome.<br>Sent directly to our inbox.</p>
+        </div>
+
+        <div class="alert-box" id="fbAlert"></div>
+      </div>
+
+      <!-- Feedback success screen -->
+      <div class="fb-success" id="fbSuccess">
+        <div class="fb-success-icon">🌿</div>
+        <h2 class="fb-success-title">Thank you for your feedback!</h2>
+        <p class="fb-success-sub">Your response has been emailed to our team. We read every single submission and use it to improve the Maharashtra Tourism experience for travellers like you.<br><br>Safe travels! 🙏</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <span class="footer-copy">© 2025 Maharashtra Tourism · Made with ❤️ for incredible travellers.</span>
+    <nav class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="pune.html">Pune</a>
+      <a href="mumbai.html">Mumbai</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </footer>
+
+  <script>
+    // ══════════════════════════════════════════════════════
+    //  ⚠️  PASTE YOUR THREE EMAILJS IDs HERE
+    //  Get them free at: https://emailjs.com
+    // ══════════════════════════════════════════════════════
+    const EMAILJS_PUBLIC_KEY   = 'YOUR_PUBLIC_KEY';      // e.g. 'aBcDeFgHiJkLmNoP'
+    const EMAILJS_SERVICE_ID   = 'YOUR_SERVICE_ID';      // e.g. 'service_xxxxxxx'
+    const EMAILJS_TEMPLATE_CONTACT  = 'YOUR_CONTACT_TEMPLATE_ID';  // e.g. 'template_xxxxxxx'
+    const EMAILJS_TEMPLATE_FEEDBACK = 'YOUR_FEEDBACK_TEMPLATE_ID'; // e.g. 'template_yyyyyyy'
+    // ══════════════════════════════════════════════════════
+
+    // Initialise EmailJS with your public key
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
+    /* ── Tab switching ── */
+    function switchTab(name, btn) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('panel-' + name).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    /* ── Mood ── */
+    function selectMood(btn) {
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+
+    /* ── Recommend toggle ── */
+    function selectToggle(btn) {
+      document.querySelectorAll('.toggle-opt').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+
+    /* ── Show/hide alert box ── */
+    function showAlert(id, type, msg) {
+      const el = document.getElementById(id);
+      el.className = `alert-box ${type} visible`;
+      el.textContent = msg;
+    }
+    function hideAlert(id) {
+      document.getElementById(id).className = 'alert-box';
+    }
+
+    /* ── Validate a field ── */
+    function validate(inputId, errorId, checkFn) {
+      const input = document.getElementById(inputId);
+      const error = document.getElementById(errorId);
+      const ok = checkFn(input.value.trim());
+      input.classList.toggle('error', !ok);
+      error.classList.toggle('visible', !ok);
+      return ok;
+    }
+
+    /* ════════════════════════════════
+       CONTACT FORM SUBMIT
+       Sends email via EmailJS to your Gmail
+    ════════════════════════════════ */
+    async function submitContact() {
+      hideAlert('contactAlert');
+
+      // Validate all required fields
+      const ok = [
+        validate('c-fname',   'err-fname',   v => v.length > 0),
+        validate('c-lname',   'err-lname',   v => v.length > 0),
+        validate('c-email',   'err-email',   v => /\S+@\S+\.\S+/.test(v)),
+        validate('c-subject', 'err-subject', v => v.length > 0),
+        validate('c-message', 'err-message', v => v.length > 10),
+      ].every(Boolean);
+
+      if (!ok) return;
+
+      const btn = document.getElementById('contactBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-loader"></span> Sending…';
+
+      // Build the template parameters — these must match your EmailJS template variables
+      const params = {
+        from_name:    document.getElementById('c-fname').value.trim() + ' ' + document.getElementById('c-lname').value.trim(),
+        reply_email:  document.getElementById('c-email').value.trim(),
+        phone:        document.getElementById('c-phone').value.trim() || 'Not provided',
+        subject:      document.getElementById('c-subject').value,
+        message:      document.getElementById('c-message').value.trim(),
+        submitted_at: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+        form_type:    'Contact Form',
+      };
+
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CONTACT, params);
+        showAlert('contactAlert', 'success', '✅  Message sent! We\'ll get back to you within 2 business days.');
+        // Clear fields
+        ['c-fname','c-lname','c-email','c-phone','c-message'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('c-subject').selectedIndex = 0;
+      } catch (err) {
+        console.error('EmailJS error:', err);
+        showAlert('contactAlert', 'error', '❌  Sending failed. Please try again or email us directly at info@maharashtratourism.gov.in');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Send Message →';
+      }
+    }
+
+    /* ════════════════════════════════
+       FEEDBACK FORM SUBMIT
+       Sends full feedback email via EmailJS
+    ════════════════════════════════ */
+    async function submitFeedback() {
+      hideAlert('fbAlert');
+
+      const ratingEl = document.querySelector('input[name="rating"]:checked');
+      const text     = document.getElementById('fb-text').value.trim();
+
+      if (!ratingEl) { showAlert('fbAlert', 'error', '⭐ Please give an overall star rating.'); return; }
+      if (!text)     { showAlert('fbAlert', 'error', '✏️ Please write a short feedback message.'); return; }
+
+      const btn = document.getElementById('fbBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-loader"></span> Submitting…';
+
+      // Collect all selected categories
+      const categories = [...document.querySelectorAll('.cat-chip.selected')]
+        .map(c => c.textContent.trim()).join(', ') || 'Not specified';
+
+      const mood      = document.querySelector('.mood-btn.selected')?.dataset.mood || 'Not selected';
+      const recommend = document.querySelector('.toggle-opt.selected')?.textContent.trim() || 'Not answered';
+
+      const params = {
+        form_type:    'Feedback Form',
+        rating:       ratingEl.value + ' / 5',
+        mood:         mood,
+        categories:   categories,
+        city:         document.getElementById('fb-city').value || 'Not specified',
+        from_name:    document.getElementById('fb-name').value.trim() || 'Anonymous',
+        message:      text,
+        recommends:   recommend,
+        submitted_at: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+        reply_email:  'no-reply@maharashtratourism.gov.in',
+        subject:      'New Feedback — ' + ratingEl.value + '★ — Maharashtra Tourism',
+        phone:        'N/A',
+      };
+
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_FEEDBACK, params);
+        // Show success screen
+        document.getElementById('feedbackFormWrap').style.display = 'none';
+        document.getElementById('fbSuccess').classList.add('visible');
+      } catch (err) {
+        console.error('EmailJS error:', err);
+        showAlert('fbAlert', 'error', '❌  Submission failed. Please try again.');
+        btn.disabled = false;
+        btn.innerHTML = 'Submit Feedback →';
+      }
+    }
+  </script>
+</body>
+</html>

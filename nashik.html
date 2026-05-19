@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nashik — Maharashtra Tourism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ══ NAV ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; flex-direction: row; flex-wrap: nowrap;
+      align-items: center; justify-content: space-between;
+      height: 60px; padding: 0 2rem;
+      background: #1B3A2D;
+      border-bottom: 2px solid #52B788;
+      box-sizing: border-box;
+    }
+    .nav-brand {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .nav-brand svg { width: 26px; height: 26px; flex-shrink: 0; display: block; }
+    .nav-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 600;
+      color: #fff; line-height: 1; white-space: nowrap;
+    }
+    .nav-wordmark span { color: #52B788; }
+    .nav-links {
+      display: flex !important;
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+      margin: 0; padding: 0;
+      flex-shrink: 0;
+    }
+    .nav-links li { list-style: none; }
+    .nav-links li a {
+      display: block;
+      padding: 0 0.75rem;
+      line-height: 60px;
+      text-decoration: none;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color 0.2s, background 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links li a:hover { color: #52B788; }
+    .nav-links li a.active { color: #52B788; border-bottom: 2px solid #52B788; }
+    .nav-toggle { display: none; }
+    /* ══ END NAV ══ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:  #1B3A2D;
+      --green-mid:   #2D6A4F;
+      --green-light: #52B788;
+      --cream:       #F5FBF7;
+      --card-bg:     #EEF7F2;
+      --muted:       #4A7A5E;
+      --white:       #ffffff;
+      --nav-h:       60px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--green-dark); overflow-x: clip; }
+
+    
+
+    
+    
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; padding-top: var(--nav-h);
+      position: relative; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: var(--nav-h) 4rem 5rem;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        linear-gradient(to top, rgba(27,58,45,0.92) 0%, rgba(27,58,45,0.42) 45%, rgba(27,58,45,0.10) 100%),
+        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400') center/cover;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green-light); margin-bottom: 1.2rem; opacity: 0; animation: fadeUp 0.8s 0.3s forwards; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(4rem, 9vw, 8rem); font-weight: 300; line-height: 0.95; color: var(--white); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.5s forwards; }
+    .hero-title em { font-style: italic; color: var(--green-light); }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.68); line-height: 1.7; max-width: 500px; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s 0.7s forwards; }
+    .hero-chips { display: flex; flex-wrap: wrap; gap: 0.75rem; opacity: 0; animation: fadeUp 0.8s 0.9s forwards; }
+    .chip { padding: 0.4rem 1rem; border: 1px solid rgba(255,255,255,0.28); color: rgba(255,255,255,0.82); font-size: 0.78rem; letter-spacing: 0.05em; }
+
+    section { padding: 6rem 4rem; }
+    .section-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green-light); margin-bottom: 1.2rem; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.15; color: var(--green-dark); margin-bottom: 2.5rem; }
+    .section-title em { font-style: italic; color: var(--green-light); }
+
+    /* ATTRACTIONS */
+    .attractions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(82,183,136,0.15); }
+    .attraction-card { background: var(--card-bg); padding: 2.5rem 2rem; text-decoration: none; color: inherit; display: block; transition: background 0.3s, transform 0.2s; border-bottom: 3px solid transparent; }
+    .attraction-card:hover { background: var(--white); border-bottom-color: var(--green-light); transform: translateY(-2px); }
+    .attraction-emoji { font-size: 2rem; margin-bottom: 1.2rem; }
+    .attraction-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--green-dark); margin-bottom: 0.6rem; }
+    .attraction-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; }
+    .attraction-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green-mid); transition: gap 0.2s; }
+    .attraction-card:hover .attraction-link { gap: 0.8rem; }
+
+    /* WINE SECTION */
+    .wine-section { background: var(--green-dark); }
+    .wine-section .section-label { color: var(--green-light); }
+    .wine-section .section-title { color: var(--white); }
+    .wine-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+    .wine-card { border: 1px solid rgba(82,183,136,0.25); padding: 2rem 1.5rem; transition: border-color 0.3s; }
+    .wine-card:hover { border-color: var(--green-light); }
+    .wine-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--white); margin-bottom: 0.5rem; }
+    .wine-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+    /* AI PLANNER */
+    .planner-section { background: var(--cream); }
+    .planner-wrapper { max-width: 860px; margin: 0 auto; border: 1.5px solid rgba(82,183,136,0.3); background: var(--white); padding: 3.5rem; }
+    .planner-title { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--green-dark); margin-bottom: 0.5rem; }
+    .planner-subtitle { font-size: 0.9rem; color: var(--muted); margin-bottom: 2.5rem; line-height: 1.6; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .form-group input, .form-group select, .form-group textarea { padding: 0.85rem 1rem; border: 1.5px solid rgba(82,183,136,0.25); background: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--green-dark); outline: none; transition: border-color 0.2s; appearance: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--green-light); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-full { grid-column: 1 / -1; }
+    .interest-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem; }
+    .interest-chip { padding: 0.45rem 1rem; border: 1.5px solid rgba(82,183,136,0.25); font-size: 0.8rem; color: var(--muted); cursor: pointer; transition: all 0.2s; user-select: none; background: transparent; }
+    .interest-chip.selected { border-color: var(--green-light); background: var(--green-light); color: var(--white); }
+    .plan-btn { width: 100%; padding: 1.1rem; background: var(--green-mid); color: var(--white); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2rem; transition: background 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+    .plan-btn:hover:not(:disabled) { background: var(--green-dark); }
+    .plan-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .result-box { margin-top: 2.5rem; border-top: 2px solid var(--green-light); padding-top: 2.5rem; display: none; }
+    .result-box.visible { display: block; }
+    .result-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-mid); margin-bottom: 1rem; }
+    .result-content { font-size: 0.95rem; color: var(--green-dark); line-height: 1.85; white-space: pre-wrap; }
+    .result-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; margin: 1.5rem 0 0.5rem; color: var(--green-mid); }
+    .loader { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* FOOTER */
+    .city-footer { background: var(--green-dark); padding: 2.5rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(82,183,136,0.2); }
+    .city-footer-text { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
+    .footer-
+
+    .footer-nav a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--green-light); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 768px) {
+      .hero { padding: var(--nav-h) 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .attractions-grid { grid-template-columns: 1fr; }
+      .wine-grid { grid-template-columns: 1fr 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .planner-wrapper { padding: 2rem; }
+      .city-footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+      <nav>
+    <a href="index.html" class="nav-brand">
+      <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="15" r="14" stroke="#52B788" stroke-width="1.2"/><path d="M15 3 C16 8.5 16 12 15 15 C14 12 14 8.5 15 3Z" fill="#52B788"/><path d="M15 27 C14 21.5 14 18 15 15 C16 18 16 21.5 15 27Z" fill="#52B788"/><path d="M3 15 C8.5 14 12 14 15 15 C12 16 8.5 16 3 15Z" fill="#C8860A"/><path d="M27 15 C21.5 16 18 16 15 15 C18 14 21.5 14 27 15Z" fill="#C8860A"/><circle cx="15" cy="15" r="2.2" fill="#1B3A2D"/><circle cx="15" cy="15" r="0.9" fill="#52B788"/></svg>
+      <span class="nav-wordmark">Maha<span>rashtra</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="pune.html">Pune</a></li>
+      <li><a href="mumbai.html">Mumbai</a></li>
+      <li><a href="nashik.html" class="active">Nashik</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Maharashtra · City of Temples & Vines</p>
+      <h1 class="hero-title">Nashik<br><em>Revealed</em></h1>
+      <p class="hero-sub">India's wine capital and a sacred pilgrimage city in one — where the holy Godavari flows past ancient ghats, and vineyards stretch across sun-drenched valleys.</p>
+      <div class="hero-chips">
+        <span class="chip">🍷 Wine Country</span>
+        <span class="chip">🛕 Sacred Ghats</span>
+        <span class="chip">⛰️ Sahyadri Trails</span>
+        <span class="chip">🌿 Sula Vineyards</span>
+        <span class="chip">🪔 Kumbh Mela</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATTRACTIONS -->
+  <section>
+    <p class="section-label">Must Visit</p>
+    <h2 class="section-title">Nashik's iconic <em>landmarks</em></h2>
+    <div class="attractions-grid">
+
+      <a href="trimbakeshwar.html" class="attraction-card">
+        <div class="attraction-emoji">🛕</div>
+        <h3 class="attraction-name">Trimbakeshwar Temple</h3>
+        <p class="attraction-desc">One of the twelve sacred Jyotirlingas, this ancient Shiva temple at the source of the Godavari river draws pilgrims from across India.</p>
+        <span class="attraction-link">Explore <span>→</span></span>
+      </a>
+
+      <a href="sula.html" class="attraction-card">
+        <div class="attraction-emoji">🍷</div>
+        <h3 class="attraction-name">Sula Vineyards</h3>
+        <p class="attraction-desc">India's most celebrated winery — set among rolling hills, offering tastings, tours, a lakeside resort, and the annual SulaFest music festival.</p>
+        <span class="attraction-link">Explore <span>→</span></span>
+      </a>
+
+      <a href="pandavleni.html" class="attraction-card">
+        <div class="attraction-emoji">🏛️</div>
+        <h3 class="attraction-name">Pandavleni Caves</h3>
+        <p class="attraction-desc">Twenty-four ancient Buddhist rock-cut caves dating from the 3rd century BCE, carved into the Trirashmi Hills overlooking the city.</p>
+        <span class="attraction-link">Explore <span>→</span></span>
+      </a>
+
+      <a href="ramkund.html" class="attraction-card">
+        <div class="attraction-emoji">🪔</div>
+        <h3 class="attraction-name">Ramkund Ghat</h3>
+        <p class="attraction-desc">The holiest bathing ghat on the Godavari river — believed to be where Lord Rama bathed during his exile, and a deeply spiritual place at dawn.</p>
+        <span class="attraction-link">Explore <span>→</span></span>
+      </a>
+
+      <a href="saptashringi.html" class="attraction-card">
+        <div class="attraction-emoji">⛰️</div>
+        <h3 class="attraction-name">Saptashringi Devi Temple</h3>
+        <p class="attraction-desc">A dramatic hilltop temple 65 km from Nashik, carved into a cliff face at 4659 feet — one of Maharashtra's most revered goddess shrines.</p>
+        <span class="attraction-link">Explore <span>→</span></span>
+      </a>
+
+      <a href="kalsubai.html" class="attraction-card">
+        <div class="attraction-emoji">🏔️</div>
+        <h3 class="attraction-name">Kalsubai Peak</h3>
+        <p class="attraction-desc">At 1646 metres, Kalsubai is the highest peak in Maharashtra — a challenging and rewarding trek through tribal villages and Sahyadri forest.</p>
+        <span class="attraction-link">Explore <span>→</span></span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- WINE & FOOD -->
+  <section class="wine-section">
+    <p class="section-label">Wine & Food</p>
+    <h2 class="section-title">Taste <em>Nashik</em></h2>
+    <div class="wine-grid">
+      <div class="wine-card">
+        <h3 class="wine-name">Sula Sauvignon Blanc</h3>
+        <p class="wine-desc">Nashik's flagship wine — crisp, fruity, and perfect with the region's mild climate. Available at every winery and across India.</p>
+      </div>
+      <div class="wine-card">
+        <h3 class="wine-name">Misal Pav</h3>
+        <p class="wine-desc">Nashik's version of this Maharashtrian classic is spicier and heartier — the Kolhapuri-inspired gravy is unforgettable.</p>
+      </div>
+      <div class="wine-card">
+        <h3 class="wine-name">Saoji Chicken</h3>
+        <p class="wine-desc">A fiery Vidarbha-style dry chicken curry that Nashik has adopted as a beloved local specialty — not for the faint-hearted.</p>
+      </div>
+      <div class="wine-card">
+        <h3 class="wine-name">Grape Products</h3>
+        <p class="wine-desc">Fresh grapes, grape juice, raisins, and grape jam straight from local farms — Nashik is India's largest grape-producing region.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI PLANNER -->
+  <section class="planner-section">
+    <div class="planner-wrapper">
+      <p class="section-label">AI Travel Planner</p>
+      <h2 class="planner-title">Plan your perfect Nashik trip</h2>
+      <p class="planner-subtitle">Tell us your preferences and our AI will craft a personalised day-by-day Nashik itinerary — from vineyard tours to sacred ghats.</p>
+      <div class="form-grid">
+        <div class="form-group"><label>Number of Days</label><select id="days"><option value="1">1 Day</option><option value="2" selected>2 Days</option><option value="3">3 Days</option><option value="5">5 Days</option></select></div>
+        <div class="form-group"><label>Travel Budget</label><select id="budget"><option value="budget">Budget (₹500–1500/day)</option><option value="mid" selected>Mid-range (₹1500–4000/day)</option><option value="luxury">Luxury (₹4000+/day)</option></select></div>
+        <div class="form-group"><label>Travel Group</label><select id="group"><option value="solo">Solo Traveller</option><option value="couple" selected>Couple</option><option value="family">Family with Kids</option><option value="friends">Group of Friends</option></select></div>
+        <div class="form-group"><label>Best Season</label><select id="season"><option value="any" selected>Any / Flexible</option><option value="monsoon">Monsoon (Jul–Sep)</option><option value="winter">Winter (Oct–Feb)</option><option value="summer">Summer (Mar–Jun)</option></select></div>
+        <div class="form-group form-full">
+          <label>Interests</label>
+          <div class="interest-chips">
+            <button class="interest-chip selected" data-val="temples">🛕 Temples & Spirituality</button>
+            <button class="interest-chip selected" data-val="wine">🍷 Wine & Vineyards</button>
+            <button class="interest-chip" data-val="trekking">⛰️ Trekking & Nature</button>
+            <button class="interest-chip" data-val="caves">🏛️ Ancient Caves</button>
+            <button class="interest-chip" data-val="food">🍛 Food & Local Cuisine</button>
+            <button class="interest-chip" data-val="ghats">🪔 Ghats & River</button>
+            <button class="interest-chip" data-val="farms">🌿 Farm & Vineyard Stays</button>
+            <button class="interest-chip" data-val="festivals">🎪 Festivals & Events</button>
+          </div>
+        </div>
+        <div class="form-group form-full"><label>Special requests</label><textarea id="notes" placeholder="E.g. want to attend SulaFest, interested in Kumbh Mela dates, vegetarian only..."></textarea></div>
+      </div>
+      <button class="plan-btn" id="planBtn" onclick="generatePlan()">✨ Generate My Nashik Itinerary</button>
+      <div class="result-box" id="resultBox">
+        <div class="result-label">Your personalised itinerary</div>
+        <div class="result-content" id="resultContent"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="city-footer">
+    <span class="city-footer-text">© 2025 Maharashtra Tourism</span>
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="pune.html">Pune</a>
+      <a href="mumbai.html">Mumbai</a>
+      <a href="nashik.html">Nashik</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <script>
+    document.querySelectorAll('.interest-chip').forEach(chip => {
+      chip.addEventListener('click', () => chip.classList.toggle('selected'));
+    });
+    async function generatePlan() {
+      const days = document.getElementById('days').value;
+      const budget = document.getElementById('budget').value;
+      const group = document.getElementById('group').value;
+      const season = document.getElementById('season').value;
+      const notes = document.getElementById('notes').value;
+      const interests = [...document.querySelectorAll('.interest-chip.selected')].map(c => c.dataset.val).join(', ') || 'general sightseeing';
+      const btn = document.getElementById('planBtn');
+      btn.disabled = true; btn.innerHTML = '<span class="loader"></span> Planning your trip…';
+      const resultBox = document.getElementById('resultBox');
+      const resultContent = document.getElementById('resultContent');
+      resultBox.classList.remove('visible'); resultContent.textContent = '';
+      const prompt = `You are an expert Maharashtra travel guide specialising in Nashik tourism.\nCreate a detailed, enthusiastic, and practical ${days}-day Nashik travel itinerary for the following traveller:\n- Group type: ${group}\n- Budget: ${budget}\n- Season: ${season}\n- Interests: ${interests}\n- Special notes: ${notes || 'None'}\nFormat your response with clear Day headers (e.g. ### Day 1: Title), morning/afternoon/evening blocks, specific restaurant and winery/attraction recommendations with brief descriptions, estimated costs in INR, and practical tips.\nMake it feel personal and genuinely useful. End with 3 insider tips for Nashik first-timers.`;
+      const BACKEND_URL = 'https://your-backend.onrender.com';
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/plan`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt }) });
+        const data = await response.json();
+        const text = data.result || data.error || 'Sorry, could not generate a plan. Please try again.';
+        resultContent.innerHTML = text.replace(/### (.+)/g, '<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        resultBox.classList.add('visible');
+        resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (err) {
+        resultContent.textContent = 'Something went wrong. Please check your connection and try again.';
+        resultBox.classList.add('visible');
+      } finally {
+        btn.disabled = false; btn.innerHTML = '✨ Generate My Nashik Itinerary';
+      }
+    }
+    function toggleNav() { document.querySelector('.nav-links').classList.toggle('open'); }
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pune — Maharashtra Tourism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ══ NAV ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; flex-direction: row; flex-wrap: nowrap;
+      align-items: center; justify-content: space-between;
+      height: 60px; padding: 0 2rem;
+      background: #1B3A2D;
+      border-bottom: 2px solid #52B788;
+      box-sizing: border-box;
+    }
+    .nav-brand {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .nav-brand svg { width: 26px; height: 26px; flex-shrink: 0; display: block; }
+    .nav-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 600;
+      color: #fff; line-height: 1; white-space: nowrap;
+    }
+    .nav-wordmark span { color: #52B788; }
+    .nav-links {
+      display: flex !important;
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+      margin: 0; padding: 0;
+      flex-shrink: 0;
+    }
+    .nav-links li { list-style: none; }
+    .nav-links li a {
+      display: block;
+      padding: 0 0.75rem;
+      line-height: 60px;
+      text-decoration: none;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color 0.2s, background 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links li a:hover { color: #52B788; }
+    .nav-links li a.active { color: #52B788; border-bottom: 2px solid #52B788; }
+    .nav-toggle { display: none; }
+    /* ══ END NAV ══ */
+
+    
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:  #1B3A2D;
+      --green-mid:   #2D6A4F;
+      --green-light: #52B788;
+      --green-pale:  #E8F5EE;
+      --cream:       #F5FBF7;
+      --card-bg:     #EEF7F2;
+      --muted:       #4A7A5E;
+      --gold:        #C8860A;
+      --white:       #ffffff;
+      --nav-h:       60px;   /* nav height — used to push content down */
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--green-dark); overflow-x: clip; }
+
+    
+
+    /* Desktop links */
+
+    /* Hamburger — hidden on desktop */
+
+    /* Mobile */
+    
+
+    
+    /* Desktop links */
+
+    /* Hamburger — hidden on desktop */
+
+    /* Mobile */
+    
+
+    /* ══ HERO — FIX: padding-top = nav height so content is never hidden ══ */
+    .hero {
+      min-height: 100vh;
+      padding-top: var(--nav-h);   /* ← THIS is the fix */
+      position: relative;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding-left: 4rem; padding-right: 4rem; padding-bottom: 5rem;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        linear-gradient(to top, rgba(27,58,45,0.92) 0%, rgba(27,58,45,0.4) 45%, rgba(27,58,45,0.10) 100%),
+        url('https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1400') center/cover;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green-light); margin-bottom: 1.2rem; opacity: 0; animation: fadeUp 0.8s 0.3s forwards; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(4rem, 9vw, 8rem); font-weight: 300; line-height: 0.95; color: var(--white); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.5s forwards; }
+    .hero-title em { font-style: italic; color: var(--green-light); }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.68); line-height: 1.7; max-width: 500px; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s 0.7s forwards; }
+    .hero-chips { display: flex; flex-wrap: wrap; gap: 0.75rem; opacity: 0; animation: fadeUp 0.8s 0.9s forwards; }
+    .chip { padding: 0.4rem 1rem; border: 1px solid rgba(255,255,255,0.28); color: rgba(255,255,255,0.82); font-size: 0.78rem; letter-spacing: 0.05em; }
+
+    /* ══ SHARED ══ */
+    section { padding: 6rem 4rem; }
+    .section-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green-light); margin-bottom: 1.2rem; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.15; color: var(--green-dark); margin-bottom: 2.5rem; }
+    .section-title em { font-style: italic; color: var(--green-light); }
+
+    /* ══ ATTRACTIONS — cards are now links ══ */
+    .attractions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(82,183,136,0.15); }
+    .attraction-card {
+      background: var(--card-bg); padding: 2.5rem 2rem;
+      text-decoration: none; color: inherit;
+      display: block; position: relative;
+      transition: background 0.3s, transform 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+    .attraction-card:hover { background: var(--white); border-bottom-color: var(--green-light); transform: translateY(-2px); }
+    .attraction-emoji { font-size: 2rem; margin-bottom: 1.2rem; }
+    .attraction-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--green-dark); margin-bottom: 0.6rem; }
+    .attraction-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; }
+    .attraction-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green-mid); transition: gap 0.2s;
+    }
+    .attraction-card:hover .attraction-link { gap: 0.8rem; }
+    .attraction-link-arrow { font-size: 0.9rem; }
+
+    /* ══ FOOD ══ */
+    .food-section { background: var(--green-dark); }
+    .food-section .section-label { color: var(--green-light); }
+    .food-section .section-title { color: var(--white); }
+    .food-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+    .food-card { border: 1px solid rgba(82,183,136,0.25); padding: 2rem 1.5rem; transition: border-color 0.3s; }
+    .food-card:hover { border-color: var(--green-light); }
+    .food-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--white); margin-bottom: 0.5rem; }
+    .food-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+    /* ══ AI PLANNER ══ */
+    .planner-section { background: var(--cream); }
+    .planner-wrapper { max-width: 860px; margin: 0 auto; border: 1.5px solid rgba(82,183,136,0.3); background: var(--white); padding: 3.5rem; }
+    .planner-title { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--green-dark); margin-bottom: 0.5rem; }
+    .planner-subtitle { font-size: 0.9rem; color: var(--muted); margin-bottom: 2.5rem; line-height: 1.6; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .form-group input, .form-group select, .form-group textarea { padding: 0.85rem 1rem; border: 1.5px solid rgba(82,183,136,0.25); background: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--green-dark); outline: none; transition: border-color 0.2s; appearance: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--green-light); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-full { grid-column: 1 / -1; }
+    .interest-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem; }
+    .interest-chip { padding: 0.45rem 1rem; border: 1.5px solid rgba(82,183,136,0.25); font-size: 0.8rem; color: var(--muted); cursor: pointer; transition: all 0.2s; user-select: none; background: transparent; }
+    .interest-chip.selected { border-color: var(--green-light); background: var(--green-light); color: var(--white); }
+    .plan-btn { width: 100%; padding: 1.1rem; background: var(--green-mid); color: var(--white); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2rem; transition: background 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+    .plan-btn:hover:not(:disabled) { background: var(--green-dark); }
+    .plan-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .result-box { margin-top: 2.5rem; border-top: 2px solid var(--green-light); padding-top: 2.5rem; display: none; }
+    .result-box.visible { display: block; }
+    .result-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-mid); margin-bottom: 1rem; }
+    .result-content { font-size: 0.95rem; color: var(--green-dark); line-height: 1.85; white-space: pre-wrap; }
+    .result-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; margin: 1.5rem 0 0.5rem; color: var(--green-mid); }
+    .loader { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ══ FOOTER ══ */
+    .city-footer { background: var(--green-dark); padding: 2.5rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(82,183,136,0.2); }
+    .city-footer-text { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
+    .footer-
+
+    .footer-nav a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--green-light); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 768px) {
+
+      .hero { padding: var(--nav-h) 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .attractions-grid { grid-template-columns: 1fr; }
+      .food-grid { grid-template-columns: 1fr 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .planner-wrapper { padding: 2rem; }
+      .city-footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+          <nav>
+    <a href="index.html" class="nav-brand">
+      <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="15" r="14" stroke="#52B788" stroke-width="1.2"/><path d="M15 3 C16 8.5 16 12 15 15 C14 12 14 8.5 15 3Z" fill="#52B788"/><path d="M15 27 C14 21.5 14 18 15 15 C16 18 16 21.5 15 27Z" fill="#52B788"/><path d="M3 15 C8.5 14 12 14 15 15 C12 16 8.5 16 3 15Z" fill="#C8860A"/><path d="M27 15 C21.5 16 18 16 15 15 C18 14 21.5 14 27 15Z" fill="#C8860A"/><circle cx="15" cy="15" r="2.2" fill="#1B3A2D"/><circle cx="15" cy="15" r="0.9" fill="#52B788"/></svg>
+      <span class="nav-wordmark">Maha<span>rashtra</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="pune.html" class="active">Pune</a></li>
+      <li><a href="mumbai.html">Mumbai</a></li>
+      <li><a href="nashik.html">Nashik</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Maharashtra · Cultural Capital</p>
+      <h1 class="hero-title">Pune<br><em>Unveiled</em></h1>
+      <p class="hero-sub">The Oxford of the East — where Peshwa legacy meets startup spirit, and every lane has a story worth hearing.</p>
+      <div class="hero-chips">
+        <span class="chip">🏰 Forts</span>
+        <span class="chip">🎓 Education Hub</span>
+        <span class="chip">🍽️ Street Food</span>
+        <span class="chip">🎭 Culture</span>
+        <span class="chip">🌿 Hill Stations Nearby</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATTRACTIONS — each card links to its own page -->
+  <section>
+    <p class="section-label">Must Visit</p>
+    <h2 class="section-title">Pune's iconic <em>landmarks</em></h2>
+    <div class="attractions-grid">
+
+      <a href="sinhagad.html" class="attraction-card">
+        <div class="attraction-emoji">🏰</div>
+        <h3 class="attraction-name">Sinhagad Fort</h3>
+        <p class="attraction-desc">A hilltop fortress steeped in Maratha history. The trek at sunrise rewards you with panoramic views of the Western Ghats.</p>
+        <span class="attraction-link">Explore <span class="attraction-link-arrow">→</span></span>
+      </a>
+
+      <a href="agakhan.html" class="attraction-card">
+        <div class="attraction-emoji">🕌</div>
+        <h3 class="attraction-name">Aga Khan Palace</h3>
+        <p class="attraction-desc">A monument of serenity and freedom. The palace where Kasturba Gandhi spent her final days is now a sacred memorial museum.</p>
+        <span class="attraction-link">Explore <span class="attraction-link-arrow">→</span></span>
+      </a>
+
+      <a href="shaniwarwada.html" class="attraction-card">
+        <div class="attraction-emoji">🐘</div>
+        <h3 class="attraction-name">Shaniwarwada</h3>
+        <p class="attraction-desc">The legendary Peshwa palace at the heart of Pune. Its sound-and-light shows recreate the splendour of an entire empire.</p>
+        <span class="attraction-link">Explore <span class="attraction-link-arrow">→</span></span>
+      </a>
+
+      <a href="osho.html" class="attraction-card">
+        <div class="attraction-emoji">🧘</div>
+        <h3 class="attraction-name">Osho Ashram</h3>
+        <p class="attraction-desc">A lush meditation resort in Koregaon Park — a global destination for inner journeys, surrounded by bamboo gardens.</p>
+        <span class="attraction-link">Explore <span class="attraction-link-arrow">→</span></span>
+      </a>
+
+      <a href="mulshi.html" class="attraction-card">
+        <div class="attraction-emoji">🌿</div>
+        <h3 class="attraction-name">Mulshi Lake & Dam</h3>
+        <p class="attraction-desc">Just an hour's drive from Pune, Mulshi offers misty monsoon escapes, green valleys, and stunning dam views.</p>
+        <span class="attraction-link">Explore <span class="attraction-link-arrow">→</span></span>
+      </a>
+
+      <a href="pashan.html" class="attraction-card">
+        <div class="attraction-emoji">🎨</div>
+        <h3 class="attraction-name">Pashan Lake & Vetal Tekdi</h3>
+        <p class="attraction-desc">Nature's hidden gems within city limits — perfect for early morning walks, birdwatching, and quiet contemplation.</p>
+        <span class="attraction-link">Explore <span class="attraction-link-arrow">→</span></span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FOOD -->
+  <section class="food-section">
+    <p class="section-label">Food Culture</p>
+    <h2 class="section-title">Taste <em>Pune</em></h2>
+    <div class="food-grid">
+      <div class="food-card"><h3 class="food-name">Misal Pav</h3><p class="food-desc">The quintessential Pune breakfast — spicy sprouted curry topped with farsan, onions, and served with buttered pav.</p></div>
+      <div class="food-card"><h3 class="food-name">Pav Bhaji</h3><p class="food-desc">FC Road's legendary street stalls serve this buttery vegetable mash with a side of Pune nostalgia.</p></div>
+      <div class="food-card"><h3 class="food-name">Mastani</h3><p class="food-desc">Pune's thick, royal ice cream milkshake topped with kulfi and dry fruits — a drink that became a cultural icon.</p></div>
+      <div class="food-card"><h3 class="food-name">Shrewsbury Biscuits</h3><p class="food-desc">Kayani Bakery's legendary buttery biscuits — a colonial-era tradition that Punekars swear by, exported worldwide.</p></div>
+    </div>
+  </section>
+
+  <!-- AI PLANNER -->
+  <section class="planner-section">
+    <div class="planner-wrapper">
+      <p class="section-label">AI Travel Planner</p>
+      <h2 class="planner-title">Plan your perfect Pune trip</h2>
+      <p class="planner-subtitle">Tell us your preferences and our AI will craft a personalised day-by-day itinerary just for you.</p>
+      <div class="form-grid">
+        <div class="form-group"><label>Number of Days</label><select id="days"><option value="1">1 Day</option><option value="2" selected>2 Days</option><option value="3">3 Days</option><option value="5">5 Days</option><option value="7">1 Week</option></select></div>
+        <div class="form-group"><label>Travel Budget</label><select id="budget"><option value="budget">Budget (₹500–1500/day)</option><option value="mid" selected>Mid-range (₹1500–4000/day)</option><option value="luxury">Luxury (₹4000+/day)</option></select></div>
+        <div class="form-group"><label>Travel Group</label><select id="group"><option value="solo">Solo Traveller</option><option value="couple" selected>Couple</option><option value="family">Family with Kids</option><option value="friends">Group of Friends</option></select></div>
+        <div class="form-group"><label>Best Season</label><select id="season"><option value="any" selected>Any / Flexible</option><option value="monsoon">Monsoon (Jul–Sep)</option><option value="winter">Winter (Oct–Feb)</option><option value="summer">Summer (Mar–Jun)</option></select></div>
+        <div class="form-group form-full">
+          <label>Interests</label>
+          <div class="interest-chips">
+            <button class="interest-chip selected" data-val="history">🏰 History & Forts</button>
+            <button class="interest-chip" data-val="food">🍛 Food & Street Food</button>
+            <button class="interest-chip" data-val="nature">🌿 Nature & Trekking</button>
+            <button class="interest-chip" data-val="culture">🎭 Culture & Arts</button>
+            <button class="interest-chip" data-val="spiritual">🧘 Spiritual & Wellness</button>
+            <button class="interest-chip" data-val="shopping">🛍️ Shopping</button>
+            <button class="interest-chip" data-val="nightlife">🌃 Cafés & Nightlife</button>
+            <button class="interest-chip" data-val="daytrips">🚗 Day Trips Nearby</button>
+          </div>
+        </div>
+        <div class="form-group form-full"><label>Special requests</label><textarea id="notes" placeholder="E.g. travelling with elderly parents, vegetarian only, photography enthusiast..."></textarea></div>
+      </div>
+      <button class="plan-btn" id="planBtn" onclick="generatePlan()">✨ Generate My Pune Itinerary</button>
+      <div class="result-box" id="resultBox">
+        <div class="result-label">Your personalised itinerary</div>
+        <div class="result-content" id="resultContent"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="city-footer">
+    <span class="city-footer-text">© 2025 Maharashtra Tourism</span>
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="pune.html">Pune</a>
+      <a href="mumbai.html">Mumbai</a>
+    </nav>
+  </div>
+
+  <script>
+    document.querySelectorAll('.interest-chip').forEach(chip => {
+      chip.addEventListener('click', () => chip.classList.toggle('selected'));
+    });
+    async function generatePlan() {
+      const days = document.getElementById('days').value;
+      const budget = document.getElementById('budget').value;
+      const group = document.getElementById('group').value;
+      const season = document.getElementById('season').value;
+      const notes = document.getElementById('notes').value;
+      const interests = [...document.querySelectorAll('.interest-chip.selected')].map(c => c.dataset.val).join(', ') || 'general sightseeing';
+      const btn = document.getElementById('planBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="loader"></span> Planning your trip…';
+      const resultBox = document.getElementById('resultBox');
+      const resultContent = document.getElementById('resultContent');
+      resultBox.classList.remove('visible');
+      resultContent.textContent = '';
+      const prompt = `You are an expert Maharashtra travel guide specialising in Pune tourism.\nCreate a detailed, enthusiastic, and practical ${days}-day Pune travel itinerary for the following traveller:\n- Group type: ${group}\n- Budget: ${budget}\n- Season: ${season}\n- Interests: ${interests}\n- Special notes: ${notes || 'None'}\nFormat your response with clear Day headers (e.g. ### Day 1: Title), morning/afternoon/evening blocks, specific restaurant and attraction recommendations with brief descriptions, estimated costs in INR, and practical tips.\nMake it feel personal, warm, and genuinely useful. End with 3 quick insider tips for Pune first-timers.`;
+      const BACKEND_URL = 'https://your-backend.onrender.com';
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/plan`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt }) });
+        const data = await response.json();
+        const text = data.result || data.error || 'Sorry, could not generate a plan. Please try again.';
+        resultContent.innerHTML = text.replace(/### (.+)/g, '<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        resultBox.classList.add('visible');
+        resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (err) {
+        resultContent.textContent = 'Something went wrong. Please check your connection and try again.';
+        resultBox.classList.add('visible');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '✨ Generate My Pune Itinerary';
+      }
+    }
+  </script>
+</body>
+</html>
